@@ -1,0 +1,69 @@
+# Dependencies
+node_modules/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+
+# Logs and runtime output
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+server.out.log
+server.err.log
+tmp-*.log
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build, coverage, and caches
+dist/
+build/
+coverage/
+.nyc_output/
+.cache/
+.parcel-cache/
+.vite/
+.turbo/
+
+# Local generated files and exports
+tmp/
+temp/
+*.tmp
+*.bak
+*.docx
+*.pdf
+*.xlsx
+*.csv
+
+# Test and local automation artifacts
+playwright-report/
+test-results/
+screenshots/
+trace.zip
+
+# Local seed data and one-off seed scripts
+seeds/
+seed-data/
+*.seed.json
+*.seed.js
+backend/seeds/
+backend/seed*.js
+backend/scripts/seed*.js
+backend/scripts/*seed*.js
+backend/scripts/*Seed*.js
+backend/scripts/*Seeder*.js

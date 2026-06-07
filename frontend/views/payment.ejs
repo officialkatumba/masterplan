@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+<main class="container page-shell">
+  <div class="payment-card">
+    <section class="payment-summary">
+      <span class="section-kicker">One-time enhancement</span>
+      <h1>Enhance this business plan with mobile money.</h1>
+      <p>No plans and no subscriptions. Confirm a manual mobile-money payment, then generate the enhanced 16-20 page version.</p>
+      <div class="fee-pill"><%= premiumCurrency %> <%= premiumAmount %></div>
+      <p class="merchant-note">Merchant number: <strong><%= merchantNumber %></strong></p>
+    </section>
+
+    <section class="payment-form-panel">
+      <form id="paymentForm" data-project-id="<%= project._id %>" data-amount="<%= premiumAmount %>" data-currency="<%= premiumCurrency %>" data-merchant="<%= merchantNumber %>">
+        <div class="mb-3">
+          <label class="form-label" for="provider">Mobile Money Provider</label>
+          <select class="form-select" id="provider" name="provider" required>
+            <option value="">Choose provider</option>
+            <option>MTN Mobile Money</option>
+            <option>Airtel Money</option>
+            <option>Vodafone</option>
+            <option>Orange</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label class="form-label" for="phone">Mobile Money Phone Number</label>
+          <input class="form-control" id="phone" name="phone" value="<%= user.mobileNumber || user.phone %>" placeholder="+260..." required>
+        </div>
+        <button class="btn btn-gradient w-100" type="submit">Pay with Mobile Money</button>
+      </form>
+    </section>
+  </div>
+</main>
+<%- include('partials/footer') %>

@@ -1,0 +1,83 @@
+<%- include('partials/header') %>
+<main class="container page-shell">
+  <div class="dashboard-heading">
+    <div>
+      <h1 class="dashboard-title">Dashboard</h1>
+      <p class="dashboard-welcome mb-2">Welcome, <%= user.fullName || user.email %></p>
+      <p class="text-muted mb-0">Track platform momentum and manage your personal business plan projects.</p>
+    </div>
+  </div>
+
+  <div class="dashboard-metrics mb-4" data-metrics-grid>
+    <article class="dashboard-metric-bar metric-blue">
+      <span class="metric-bar-icon"><i class="fa-solid fa-chart-column"></i></span>
+      <span class="metric-bar-label">Business Plans Created</span>
+      <strong class="metric-number" data-metric="totalPlans">0</strong>
+    </article>
+    <article class="dashboard-metric-bar metric-green">
+      <span class="metric-bar-icon"><i class="fa-solid fa-users"></i></span>
+      <span class="metric-bar-label">Active Users</span>
+      <strong class="metric-number" data-metric="activeUsers">0</strong>
+    </article>
+    <article class="dashboard-metric-bar metric-purple">
+      <span class="metric-bar-icon"><i class="fa-solid fa-star"></i></span>
+      <span class="metric-bar-label">Enhanced Plans</span>
+      <strong class="metric-number" data-metric="enhancedPlans">0</strong>
+    </article>
+    <article class="dashboard-metric-bar metric-orange">
+      <span class="metric-bar-icon"><i class="fa-solid fa-lightbulb"></i></span>
+      <span class="metric-bar-label">AI Insights</span>
+      <strong class="metric-number" data-metric="totalInsights">0</strong>
+    </article>
+  </div>
+
+  <section class="content-card dashboard-project-card">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+      <h2 class="h4 mb-0">Your Projects</h2>
+      <a class="btn btn-gradient btn-project-new" href="/project/new">Create New Project</a>
+    </div>
+
+    <% if (!projects.length) { %>
+      <div class="empty-state">
+        <h3>No projects yet</h3>
+        <p>Start the guided 10-section form and your project will appear here.</p>
+        <a class="btn btn-gradient" href="/project/new">Create New Project</a>
+      </div>
+    <% } else { %>
+      <div class="project-toolbar">
+        <div class="project-count" data-project-count></div>
+        <label class="project-page-size">
+          <span>Show</span>
+          <select class="form-select form-select-sm" data-project-page-size>
+            <option value="5">5</option>
+            <option value="10" selected>10</option>
+            <option value="20">20</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="project-list" data-project-list>
+        <% projects.forEach((project) => { %>
+          <article class="project-row" data-project-row="<%= project._id %>">
+            <div>
+              <h3><%= project.projectName || 'Untitled Business Plan' %></h3>
+              <p class="mb-0 text-muted">Last edited <%= new Date(project.updatedAt).toLocaleDateString() %></p>
+            </div>
+            <span class="status-badge <%= project.enhanced ? 'enhanced' : 'free' %>"><%= project.enhanced ? 'Enhanced' : 'Free' %></span>
+            <div class="project-actions">
+              <a class="btn btn-soft btn-sm" href="/project/<%= project._id %>">View Project</a>
+              <a class="btn btn-outline-primary btn-sm" href="/project/<%= project._id %>/edit">Edit Project</a>
+              <button class="btn btn-outline-danger btn-sm" type="button" data-delete-project="<%= project._id %>">Delete Project</button>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+      <div class="project-pagination" data-project-pagination>
+        <button class="btn btn-soft btn-sm" type="button" data-project-prev>Previous</button>
+        <span data-project-page-status></span>
+        <button class="btn btn-soft btn-sm" type="button" data-project-next>Next</button>
+      </div>
+    <% } %>
+  </section>
+</main>
+<%- include('partials/footer') %>

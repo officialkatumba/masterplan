@@ -1,0 +1,37 @@
+<%- include('partials/header') %>
+<main class="container page-shell">
+  <div class="result-heading">
+    <h1 class="result-title"><%= project.projectName || 'Untitled Business Plan' %></h1>
+    <p class="result-meta">Prepared by <%= project.userId?.fullName || user.fullName || user.email %></p>
+    <div class="result-actions">
+      <% if (!readonly) { %>
+        <a class="btn btn-outline-primary" href="/project/<%= project._id %>/edit">Edit Project</a>
+      <% } %>
+      <a class="btn btn-gradient" href="/api/project/<%= project._id %>/download">Download Word</a>
+      <% if (!readonly && !project.enhanced) { %>
+        <% if (project.premiumUnlocked) { %>
+          <button class="btn btn-warning" type="button" data-enhance-project="<%= project._id %>">Generate Enhanced Plan</button>
+        <% } else { %>
+          <a class="btn btn-warning" href="/project/<%= project._id %>/payment">Enhance Business Plan</a>
+        <% } %>
+      <% } %>
+    </div>
+  </div>
+
+  <% if (project.enhanced) { %>
+    <section class="enhanced-ribbon">
+      <strong>Enhanced plan</strong>
+      <span>Includes real-world insights, benchmarks, recommendations, and expanded financial commentary.</span>
+    </section>
+  <% } %>
+
+  <article class="document-preview">
+    <% Object.entries(project.sections || {}).forEach(([key, value]) => { %>
+      <section>
+        <h2><%= key.replace(/([A-Z])/g, ' $1').replace(/^./, (char) => char.toUpperCase()) %></h2>
+        <%- renderPlanText(value) %>
+      </section>
+    <% }) %>
+  </article>
+</main>
+<%- include('partials/footer') %>

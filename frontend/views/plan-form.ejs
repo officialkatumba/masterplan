@@ -1,0 +1,83 @@
+<%- include('partials/header') %>
+<% const sections = project.sections || {}; %>
+<main class="container page-shell">
+  <section class="content-card builder-card">
+    <form id="guidedPlanForm" data-project-id="<%= project._id %>">
+      <div class="builder-form-header">
+        <div>
+          <span class="section-kicker">10-step form</span>
+          <h1 class="h3">Guided Business Plan</h1>
+          <p class="text-muted mb-0">Move section by section. Each step saves before you continue, and final submission checks the required word count before grammar and spelling correction.</p>
+        </div>
+        <div class="builder-progress">
+          <div class="progress">
+            <div class="progress-bar" id="progressBar" style="width: <%= project.progressPercent || 0 %>%"></div>
+          </div>
+          <strong id="progressValue"><%= project.progressPercent || 0 %>% complete</strong>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label" for="projectName">Project Name</label>
+        <input class="form-control form-control-lg" id="projectName" name="projectName" value="<%= project.projectName || '' %>" placeholder="e.g. Lusaka Fresh Foods Expansion" required>
+      </div>
+
+      <div class="step-strip">
+        <% guidedSections.forEach((section, index) => { %>
+          <button type="button" class="step-pill <%= index === 0 ? 'active' : '' %>" data-step-dot="<%= index %>"><%= index + 1 %></button>
+        <% }) %>
+      </div>
+
+      <% guidedSections.forEach((section, index) => { %>
+        <section class="wizard-step <%= index === 0 ? 'active' : '' %>" data-step-index="<%= index %>" data-step-title="<%= section.title %>">
+          <div class="step-heading">
+            <div>
+              <span class="section-kicker">Step <%= index + 1 %> of <%= guidedSections.length %></span>
+              <h2><%= section.title %></h2>
+            </div>
+            <span class="word-target"><%= section.minWords %>-<%= section.maxWords %> words</span>
+          </div>
+          <div class="helper-text">
+            <p><%= section.helper %></p>
+            <% if (section.starters && section.starters.length) { %>
+              <div class="starter-sentences">
+                <strong>Starter examples:</strong>
+                <span><%= section.starters.join(' . ') %></span>
+              </div>
+            <% } %>
+          </div>
+          <label class="form-label" for="<%= section.key %>">Your input</label>
+          <textarea
+            class="form-control"
+            id="<%= section.key %>"
+            name="<%= section.key %>"
+            rows="13"
+            data-min-words="<%= section.minWords %>"
+            data-max-words="<%= section.maxWords %>"
+            data-section-title="<%= section.title %>"
+            placeholder="Write your details here..."><%= sections[section.key] || '' %></textarea>
+          <div class="word-count-row" data-word-count-for="<%= section.key %>">
+            <span>0 words</span>
+            <strong>Minimum <%= section.minWords %> words required</strong>
+          </div>
+          <div class="wizard-actions">
+            <% if (index > 0) { %>
+              <button class="btn btn-soft" type="button" data-prev>Previous</button>
+            <% } else { %>
+              <span></span>
+            <% } %>
+            <div class="d-flex flex-wrap gap-2">
+              <button class="btn btn-outline-primary" type="button" data-save>Save Progress</button>
+              <% if (index < guidedSections.length - 1) { %>
+                <button class="btn btn-gradient" type="button" data-next>Save and Continue</button>
+              <% } else { %>
+                <button class="btn btn-gradient" type="button" data-submit-project>Submit for Free Correction</button>
+              <% } %>
+            </div>
+          </div>
+        </section>
+      <% }) %>
+    </form>
+  </section>
+</main>
+<%- include('partials/footer') %>

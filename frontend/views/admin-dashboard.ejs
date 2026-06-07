@@ -1,0 +1,79 @@
+<%- include('partials/header') %>
+<main class="container page-shell">
+  <div class="dashboard-heading">
+    <div>
+      <span class="section-kicker">Admin Panel</span>
+      <h1>System owner dashboard</h1>
+      <p class="text-muted mb-0">User activity, platform metrics, enhancement revenue, and project oversight.</p>
+    </div>
+    <div class="revenue-card">
+      <span>Total Revenue</span>
+      <strong><%= revenueCurrency %> <%= totalRevenue.toLocaleString() %></strong>
+    </div>
+  </div>
+
+  <div class="metrics-grid mb-4" data-metrics-grid data-server-metrics='<%- JSON.stringify(metrics) %>'>
+    <article class="metric-card metric-blue">
+      <span class="metric-icon">📊</span>
+      <strong class="metric-number" data-metric="totalPlans">0</strong>
+      <span>Business Plans Created</span>
+    </article>
+    <article class="metric-card metric-green">
+      <span class="metric-icon">👥</span>
+      <strong class="metric-number" data-metric="activeUsers">0</strong>
+      <span>Active Users</span>
+    </article>
+    <article class="metric-card metric-purple">
+      <span class="metric-icon">⭐</span>
+      <strong class="metric-number" data-metric="enhancedPlans">0</strong>
+      <span>Enhanced Plans</span>
+    </article>
+    <article class="metric-card metric-orange">
+      <span class="metric-icon">💡</span>
+      <strong class="metric-number" data-metric="totalInsights">0</strong>
+      <span>AI Insights</span>
+    </article>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <section class="content-card">
+        <h2 class="h4 mb-3">All Users</h2>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Joined</th>
+                <th>Projects</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% users.forEach((account) => { %>
+                <tr>
+                  <td><%= account.fullName %> <%= account.isAdmin ? '(Admin)' : '' %></td>
+                  <td><%= account.email %></td>
+                  <td><%= account.mobileNumber %></td>
+                  <td><%= new Date(account.createdAt).toLocaleDateString() %></td>
+                  <td><%= account.projectCount %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+    <div class="col-lg-4">
+      <section class="content-card">
+        <h2 class="h4 mb-3">Plans Created</h2>
+        <div class="chart-placeholder">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p class="text-muted mb-0">Simple placeholder for weekly/monthly project creation chart.</p>
+      </section>
+    </div>
+  </div>
+</main>
+<%- include('partials/footer') %>
