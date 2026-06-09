@@ -1,172 +1,444 @@
+
 <%- include('partials/header') %>
 
-<main>
-  <section class="landing-hero">
-    <div class="container">
-      <div class="hero-content">
-        <div>
-          <span class="section-kicker">Business Plan Made Simple</span>
+<style>
+  body {
+    background:
+      linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(236, 72, 153, 0.06)),
+      radial-gradient(circle at top right, rgba(16, 185, 129, 0.12), transparent 34%),
+      #f6f8fc;
+    color: #111827;
+    font-family: 'Inter', sans-serif;
+  }
 
-```
-      <h1>Get a Professional Business Plan Without the Stress</h1>
+  .app-navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .app-navbar .navbar-collapse.show,
+  .app-navbar .navbar-collapse.collapsing {
+    margin-top: .75rem;
+    padding: .75rem;
+    border: 1px solid rgba(37, 99, 235, 0.14);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(14px);
+  }
+
+  .mp-hero {
+    padding: 7rem 1rem 4rem;
+    text-align: center;
+    background:
+      radial-gradient(circle at top, rgba(37, 99, 235, 0.18), transparent 45%),
+      linear-gradient(180deg, rgba(255,255,255,0.72), rgba(246,248,252,0.96));
+  }
+
+  .section-kicker {
+    display: inline-block;
+    color: #2563eb;
+    border: 1px solid rgba(37, 99, 235, 0.26);
+    background: rgba(37, 99, 235, 0.08);
+    border-radius: 999px;
+    padding: .35rem .9rem;
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    margin-bottom: 1rem;
+  }
+
+  .mp-hero h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 900;
+    max-width: 850px;
+    margin: 0 auto 1.2rem;
+    line-height: 1.1;
+  }
+
+  .mp-hero h1 span,
+  .mp-h2 span {
+    color: #2563eb;
+  }
+
+  .hero-copy {
+    max-width: 760px;
+    margin: 0 auto;
+    color: #667085;
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .btn-gold {
+    background: linear-gradient(135deg, #2563eb, #7c3aed, #ec4899);
+    color: #fff;
+    border: none;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: .8rem 1.4rem;
+    box-shadow: 0 14px 30px rgba(37, 99, 235, 0.24);
+  }
+
+  .btn-gold:hover {
+    color: #fff;
+    filter: brightness(1.04);
+  }
+
+  .btn-soft {
+    border: 1px solid rgba(37, 99, 235, 0.18);
+    color: #2563eb;
+    background: rgba(37, 99, 235, 0.08);
+    border-radius: 999px;
+    padding: .8rem 1.4rem;
+    font-weight: 600;
+  }
+
+  .btn-soft:hover {
+    border-color: rgba(37, 99, 235, 0.34);
+    color: #2563eb;
+    background: rgba(37, 99, 235, 0.13);
+  }
+
+  .mp-section {
+    padding: 4rem 1rem;
+  }
+
+  .mp-section-inner {
+    max-width: 1140px;
+    margin: auto;
+  }
+
+  .mp-h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+  }
+
+  .section-text {
+    max-width: 760px;
+    margin: 0 auto 2rem;
+    color: #667085;
+    line-height: 1.7;
+  }
+
+  .feature-card,
+  .step-card {
+    height: 100%;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(229, 231, 235, 0.9);
+    border-radius: 16px;
+    padding: 1.6rem;
+    box-shadow: 0 18px 45px rgba(17, 24, 39, 0.08);
+    transition: transform .2s ease, border-color .2s ease;
+  }
+
+  .feature-card:hover,
+  .step-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(37, 99, 235, 0.34);
+  }
+
+  .feature-card i {
+    color: #2563eb;
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+  }
+
+  .feature-card h3,
+  .step-card h4 {
+    color: #111827;
+    font-weight: 700;
+    margin-bottom: .6rem;
+  }
+
+  .feature-card p,
+  .step-card p {
+    color: #667085;
+    line-height: 1.65;
+    margin-bottom: 0;
+  }
+
+  .step-number {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    margin-bottom: 1rem;
+  }
+
+  .metrics-section {
+    padding: 3rem 1rem;
+  }
+
+  .metrics-box {
+    max-width: 1140px;
+    margin: auto;
+    border: 1px solid rgba(229, 231, 235, 0.9);
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 18px 45px rgba(17, 24, 39, 0.08);
+  }
+
+  .metrics-bars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .metric-bar {
+    padding: 1.4rem;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.16);
+    color: #fff;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+  }
+
+  .metric-bar:last-child {
+    border-right: none;
+  }
+
+  .metric-bar-icon {
+    color: #fff;
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: .5rem;
+  }
+
+  .metric-bar-label {
+    display: block;
+    color: rgba(255,255,255,0.72);
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  .metric-number {
+    display: block;
+    font-size: 1.8rem;
+    margin-top: .35rem;
+    color: #fff;
+  }
+
+  .cta-box {
+    max-width: 1000px;
+    margin: auto;
+    background: linear-gradient(135deg, #2563eb, #7c3aed, #ec4899);
+    color: #fff;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    box-shadow: 0 22px 55px rgba(37, 99, 235, 0.22);
+  }
+
+  .cta-box h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+  }
+
+  .cta-box p {
+    color: rgba(255,255,255,0.78);
+  }
+
+  .cta-box .btn-dark-green {
+    background: #fff;
+    color: #2563eb;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: .8rem 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .metrics-bars {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .metric-bar {
+      border-bottom: 1px solid rgba(201,149,42,0.15);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .metrics-bars {
+      grid-template-columns: 1fr;
+    }
+
+    .mp-hero {
+      padding-top: 3.5rem;
+    }
+  }
+</style>
+
+<main>
+
+  <section class="mp-hero">
+    <div class="container">
+      <span class="section-kicker">Business Plan Made Simple</span>
+
+      <h1>
+        Your business idea deserves a <span>proper plan.</span>
+      </h1>
 
       <p class="hero-copy">
-        MasterPlan helps you turn your business idea into a clear, well-structured and professional business plan for loans, grants, investors, school work, partnerships, or personal business planning. 
-        Instead of starting from a blank page, you simply answer guided questions and the system helps you build a complete plan step by step.
+        MasterPlan helps you turn your business idea into a clear, professional business plan for loans,
+        grants, investors, school work, partnerships, or personal planning. Instead of starting from a
+        blank page, you answer guided questions and build your plan step by step.
       </p>
 
       <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
-        <a class="btn btn-gradient btn-lg" href="/register">
-          Create My Business Plan
+        <a class="btn btn-gold btn-lg" href="/register">
+          Create My Business Plan <i class="fa-solid fa-arrow-right ms-1"></i>
         </a>
-        <a class="btn btn-outline-light btn-lg" href="#why-masterplan">
+        <a class="btn btn-soft btn-lg" href="#why-masterplan">
           See Why It Helps
         </a>
       </div>
     </div>
-  </div>
-</div>
-```
-
   </section>
 
-  <section id="why-masterplan" class="container py-5">
-    <div class="section-heading text-center mb-4">
+  <section id="why-masterplan" class="mp-section">
+    <div class="mp-section-inner text-center">
       <span class="section-kicker">Why people use MasterPlan</span>
-      <h2>Built for real business needs in Zambia</h2>
-      <p>
-        Many people need business plans for funding, loans, empowerment programs, investors, school assignments, or to properly understand their own business idea. MasterPlan saves time, reduces mistakes, and gives you a document that looks professional.
+      <h2 class="mp-h2">Built for real business needs <span>in Zambia</span></h2>
+      <p class="section-text">
+        Many people need business plans for funding, loans, empowerment programs, investors,
+        school assignments, or to properly understand their own business idea. MasterPlan saves time,
+        reduces mistakes, and helps you produce a document that looks professional.
       </p>
-    </div>
 
-```
-<div class="row g-4">
-  <div class="col-md-4">
-    <div class="feature-card">
-      <i class="fa-solid fa-file-lines"></i>
-      <h3>Loan & Funding Ready</h3>
-      <p>
-        Prepare a structured business plan that can support applications for loans, grants, youth empowerment programs, and investor discussions.
-      </p>
-    </div>
-  </div>
+      <div class="row g-4 text-start">
+        <div class="col-md-4">
+          <div class="feature-card">
+            <i class="fa-solid fa-file-lines"></i>
+            <h3>Loan & Funding Ready</h3>
+            <p>
+              Prepare a structured business plan that can support applications for loans, grants,
+              youth empowerment programs, and investor discussions.
+            </p>
+          </div>
+        </div>
 
-  <div class="col-md-4">
-    <div class="feature-card">
-      <i class="fa-solid fa-clock"></i>
-      <h3>Saves Time</h3>
-      <p>
-        No need to spend days wondering where to start. The guided form helps you organize your idea quickly and clearly.
-      </p>
-    </div>
-  </div>
+        <div class="col-md-4">
+          <div class="feature-card">
+            <i class="fa-solid fa-clock"></i>
+            <h3>Saves Time</h3>
+            <p>
+              No need to spend days wondering where to start. The guided form helps you organise
+              your idea quickly and clearly.
+            </p>
+          </div>
+        </div>
 
-  <div class="col-md-4">
-    <div class="feature-card">
-      <i class="fa-solid fa-chart-line"></i>
-      <h3>Clear Financial Sections</h3>
-      <p>
-        Add startup costs, revenue estimates, expenses, cash flow, and profitability details in a simple and understandable way.
-      </p>
+        <div class="col-md-4">
+          <div class="feature-card">
+            <i class="fa-solid fa-chart-line"></i>
+            <h3>Clear Financial Sections</h3>
+            <p>
+              Add startup costs, revenue estimates, expenses, cash flow, and profitability details
+              in a simple and understandable way.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-```
-
   </section>
 
-  <section class="container py-5">
-    <div class="section-heading text-center mb-4">
+  <section id="how-it-works" class="mp-section">
+    <div class="mp-section-inner text-center">
       <span class="section-kicker">How it works</span>
-      <h2>From idea to business plan in simple steps</h2>
-    </div>
+      <h2 class="mp-h2">From idea to business plan <span>in simple steps</span></h2>
 
-```
-<div class="row g-4">
-  <div class="col-md-3">
-    <div class="step-card">
-      <strong>1</strong>
-      <h4>Describe your idea</h4>
-      <p>Tell the system what business you want to start or grow.</p>
-    </div>
-  </div>
+      <div class="row g-4 text-start mt-3">
+        <div class="col-md-3">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h4>Describe your idea</h4>
+            <p>Tell the system what business you want to start or grow.</p>
+          </div>
+        </div>
 
-  <div class="col-md-3">
-    <div class="step-card">
-      <strong>2</strong>
-      <h4>Answer guided questions</h4>
-      <p>Fill in simple details about your market, costs, products, and operations.</p>
-    </div>
-  </div>
+        <div class="col-md-3">
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h4>Answer guided questions</h4>
+            <p>Fill in simple details about your market, costs, products, and operations.</p>
+          </div>
+        </div>
 
-  <div class="col-md-3">
-    <div class="step-card">
-      <strong>3</strong>
-      <h4>Generate your plan</h4>
-      <p>MasterPlan prepares a professional plan using your own information.</p>
-    </div>
-  </div>
+        <div class="col-md-3">
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h4>Generate your plan</h4>
+            <p>MasterPlan prepares a professional plan using your own information.</p>
+          </div>
+        </div>
 
-  <div class="col-md-3">
-    <div class="step-card">
-      <strong>4</strong>
-      <h4>Download and use it</h4>
-      <p>Export your plan and use it for funding, partners, investors, or personal planning.</p>
+        <div class="col-md-3">
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <h4>Download and use it</h4>
+            <p>Export your plan and use it for funding, partners, investors, or personal planning.</p>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-```
-
   </section>
 
-  <section class="container metrics-section">
-    <div class="section-heading metrics-heading">
-      <span class="section-kicker">Live platform stats</span>
-      <h2>Business ideas being turned into plans</h2>
+  <section class="metrics-section">
+    <div class="metrics-box">
+      <div class="metrics-bars" data-metrics-grid>
+        <article class="metric-bar">
+          <span class="metric-bar-icon"><i class="fa-solid fa-chart-column"></i></span>
+          <span class="metric-bar-label">Business Plans Created</span>
+          <strong class="metric-number" data-metric="totalPlans">0</strong>
+        </article>
+
+        <article class="metric-bar">
+          <span class="metric-bar-icon"><i class="fa-solid fa-users"></i></span>
+          <span class="metric-bar-label">Active Users</span>
+          <strong class="metric-number" data-metric="activeUsers">0</strong>
+        </article>
+
+        <article class="metric-bar">
+          <span class="metric-bar-icon"><i class="fa-solid fa-star"></i></span>
+          <span class="metric-bar-label">Premium Plans</span>
+          <strong class="metric-number" data-metric="enhancedPlans">0</strong>
+        </article>
+
+        <article class="metric-bar">
+          <span class="metric-bar-icon"><i class="fa-solid fa-lightbulb"></i></span>
+          <span class="metric-bar-label">AI Business Insights</span>
+          <strong class="metric-number" data-metric="totalInsights">0</strong>
+        </article>
+      </div>
     </div>
-
-```
-<div class="metrics-bars" data-metrics-grid>
-  <article class="metric-bar metric-blue">
-    <span class="metric-bar-icon"><i class="fa-solid fa-chart-column"></i></span>
-    <span class="metric-bar-label">Business Plans Created</span>
-    <strong class="metric-number" data-metric="totalPlans">0</strong>
-  </article>
-
-  <article class="metric-bar metric-green">
-    <span class="metric-bar-icon"><i class="fa-solid fa-users"></i></span>
-    <span class="metric-bar-label">Active Users</span>
-    <strong class="metric-number" data-metric="activeUsers">0</strong>
-  </article>
-
-  <article class="metric-bar metric-purple">
-    <span class="metric-bar-icon"><i class="fa-solid fa-star"></i></span>
-    <span class="metric-bar-label">Premium Plans</span>
-    <strong class="metric-number" data-metric="enhancedPlans">0</strong>
-  </article>
-
-  <article class="metric-bar metric-orange">
-    <span class="metric-bar-icon"><i class="fa-solid fa-lightbulb"></i></span>
-    <span class="metric-bar-label">AI Business Insights</span>
-    <strong class="metric-number" data-metric="totalInsights">0</strong>
-  </article>
-</div>
-```
-
   </section>
 
-  <section class="container py-5 text-center">
+  <section class="mp-section text-center">
     <div class="cta-box">
-      <span class="section-kicker">Ready to begin?</span>
+      <span class="section-kicker" style="color:#fff;border-color:rgba(255,255,255,0.38);background:rgba(255,255,255,0.14);">
+        Ready to begin?
+      </span>
       <h2>Stop delaying your business idea because of paperwork.</h2>
       <p>
         Start with what you know. MasterPlan will guide you through the rest.
       </p>
-      <a class="btn btn-gradient btn-lg" href="/register">
-        Start My Business Plan Now
+      <a class="btn btn-dark-green btn-lg mt-2" href="/register">
+        Start My Business Plan Now <i class="fa-solid fa-arrow-right ms-1"></i>
       </a>
     </div>
   </section>
+
 </main>
 
 <%- include('partials/footer') %>

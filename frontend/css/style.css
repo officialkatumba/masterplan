@@ -38,6 +38,17 @@ a { text-decoration: none; }
 .navbar-brand,
 .app-navbar .nav-link { color: var(--ink); font-weight: 800; }
 
+.navbar-brand:hover,
+.app-navbar .nav-link:hover { color: var(--ink); }
+
+.navbar-toggler {
+  border-color: rgba(37, 99, 235, 0.22);
+}
+
+.navbar-toggler-icon {
+  filter: none;
+}
+
 .navbar-brand { display: flex; align-items: center; gap: 0.7rem; }
 .brand-icon {
   display: inline-grid;
@@ -687,6 +698,7 @@ a { text-decoration: none; }
   padding: 2rem 0;
   color: var(--muted);
   border-top: 1px solid var(--line);
+  background: transparent;
 }
 
 @media (max-width: 992px) {
